@@ -1,0 +1,26 @@
+﻿<Window x:Class="Wpf_Fritzbox_TR064_Commander.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_Fritzbox_TR064_Commander"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid x:Name="Fritzbox_p_w_d_Box">
+        <Button x:Name="btn_log_in" Content="Log In" Command="{Binding Log_In_Button_Clicked_Command}" HorizontalAlignment="Left" Margin="203,82,0,0" VerticalAlignment="Top" Width="111"/>
+        <PasswordBox HorizontalAlignment="Left" Margin="43,83,0,0" VerticalAlignment="Top"  Password="" PasswordChar="*" PasswordChanged="PasswordBox_PasswordChanged"  Width="143"/>
+        <TextBox x:Name="txtBox_log_in_state" IsReadOnly="true"  HorizontalAlignment="Left" Margin="203,34,0,0" Text="{Binding Log_In_Message}" Background="{Binding Log_In_Color}" TextWrapping="Wrap" VerticalAlignment="Top" Width="111"/>
+        <Label Content="Fritzbox Password" HorizontalAlignment="Left" Margin="43,57,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="43,34,0,0" Text="{Binding FriBoUsername}" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
+        <Label Content="Fritzbox Username" HorizontalAlignment="Left" Margin="43,8,0,0" VerticalAlignment="Top"/>
+        <Button Content="Ring Dect phones" Command="{Binding Starte_Wahlrundruf_Clicked_Command}" HorizontalAlignment="Left" Margin="333,83,0,0" VerticalAlignment="Top" Width="112"/>
+        <Button Content="Get Host Count" Command="{Binding Get_Hosts_Clicked_Command}"  HorizontalAlignment="Left" Margin="581,83,0,0" VerticalAlignment="Top" Width="99"/>
+        <TextBox HorizontalAlignment="Left" Margin="514,83,0,0" Text="{Binding Dect_Number}" TextWrapping="Wrap" VerticalAlignment="Top" Width="53"/>
+        <Button Content="Dial Tel. Number" Command="{Binding Dial_Tel_Number_Clicked_Command}" HorizontalAlignment="Left" Margin="333,240,0,0" VerticalAlignment="Top" Width="149"/>
+        <TextBox x:Name="txtBox_Dial_Tel_Number" HorizontalAlignment="Left" Margin="333,213,0,0" TextWrapping="Wrap" Text="{Binding DialTelNumber}" Background="{Binding DialTelNumber_Color}"  VerticalAlignment="Top" Width="149" Height="22"/>
+        <Label Content="National Number" HorizontalAlignment="Left" Margin="333,155,0,0" VerticalAlignment="Top"/>
+        <Label Content="(Country is DE +49" HorizontalAlignment="Left" Margin="333,173,0,0" VerticalAlignment="Top"/>
+        <Label Content="Must have area code" HorizontalAlignment="Left" Margin="333,191,0,0" VerticalAlignment="Top"/>
+        <Label Content="Connection" HorizontalAlignment="Left" Margin="203,10,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

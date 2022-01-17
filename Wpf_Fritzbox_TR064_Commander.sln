@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf_Fritzbox_TR064_Commander", "Wpf_Fritzbox_TR064_Commander\Wpf_Fritzbox_TR064_Commander.csproj", "{71146C44-5614-4149-B3FE-A8BB49362B25}"
+EndProject
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "FBoxAPI", "FBoxAPI\FBoxAPI.vbproj", "{520FC00C-E417-439F-B994-0D4C1606109F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71146C44-5614-4149-B3FE-A8BB49362B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71146C44-5614-4149-B3FE-A8BB49362B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71146C44-5614-4149-B3FE-A8BB49362B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71146C44-5614-4149-B3FE-A8BB49362B25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{520FC00C-E417-439F-B994-0D4C1606109F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{520FC00C-E417-439F-B994-0D4C1606109F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{520FC00C-E417-439F-B994-0D4C1606109F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{520FC00C-E417-439F-B994-0D4C1606109F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6BD2FF65-6812-4135-B310-1ED787C1BA6F}
+	EndGlobalSection
+EndGlobal
