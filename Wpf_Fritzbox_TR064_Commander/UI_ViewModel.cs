@@ -25,6 +25,8 @@ namespace Wpf_Fritzbox_TR064_Commander
     public class UI_ViewModel : BaseViewModel
     {
         FritzBoxTR64 fritzBoxTR64;
+        
+
         public ICommand log_in_Button_Clicked_Command { get; private set; }
         public ICommand starte_Wahlrundruf_Clicked_Command { get; private set; }
         public ICommand get_Dects_Clicked_Command { get; private set; }
@@ -195,11 +197,28 @@ namespace Wpf_Fritzbox_TR064_Commander
         #region Get_Hosts_Clicked_Action
         private void Get_Hosts_Clicked_Action(object obj)
         {
-            int numberOfEntries = 0;
+            int numberOfEntries = 10;
             string hostsPath = string.Empty;
-            
+
+            HostEntry hostEntry = new HostEntry();
 
 
+            var theResult = fritzBoxTR64.Hosts.GetGenericHostEntry(10, ref hostEntry);
+
+            int dummy3 = 1;
+            /*
+            if (fritzBoxTR64.Hosts.GetGenericHostEntry(10, ref hostEntry))
+            {
+                int dummy3 = 1;
+
+            }
+            else
+            {
+                int dummy3 = 1;
+            }
+            */
+
+            /*
             try
             {
                 if (fritzBoxTR64.Hosts.GetHostNumberOfEntries(ref numberOfEntries))
@@ -216,14 +235,17 @@ namespace Wpf_Fritzbox_TR064_Commander
             {
                 string message = ex.Message;    
             }
+            */
 
-
+            /*
             if (fritzBoxTR64.Hosts.GetHostListPath(ref hostsPath))
             {
                 string path = hostsPath;
                 int dummy2 = 1;
             }
+            */
 
+            /*
             HostList hostList = new HostList();
 
             if (fritzBoxTR64.Hosts.GetHostList(ref hostList))
@@ -235,7 +257,8 @@ namespace Wpf_Fritzbox_TR064_Commander
             {
                 HostList theCopy = hostList;
                 int dummy5 = 1;
-            }         
+            }
+            */
         }
         #endregion
 

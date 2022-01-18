@@ -41,19 +41,22 @@ Friend Class HostsSCPD
     Public Function GetGenericHostEntry(Index As Integer, ByRef Host As HostEntry) As Boolean Implements IHostsSCPD.GetGenericHostEntry
         If Host Is Nothing Then Host = New HostEntry
 
-        With TR064Start(ServiceFile, "GetSpecificHostEntry", New Dictionary(Of String, String) From {{"NewIndex", Index}})
+        With TR064Start(ServiceFile, "GetGenericHostEntry", New Dictionary(Of String, String) From {{"NewIndex", Index}})
 
             Host.Index = Index
 
-            Return .TryGetValueEx("NewMACAddress", Host.MACAddress) And
-                   .TryGetValueEx("NewIPAddress", Host.IPAddress) And
-                   .TryGetValueEx("NewAddressSource", Host.AddressSource) And
-                   .TryGetValueEx("NewLeaseTimeRemaining", Host.LeaseTimeRemaining) And
-                   .TryGetValueEx("NewInterfaceType", Host.InterfaceType) And
-                   .TryGetValueEx("NewActive", Host.Active) And
-                   .TryGetValueEx("NewHostName", Host.HostName)
+            .TryGetValueEx("NewMACAddress", Host.MACAddress)
+            .TryGetValueEx("NewIPAddress", Host.IPAddress)
+            .TryGetValueEx("NewAddressSource", Host.AddressSource)
+            .TryGetValueEx("NewLeaseTimeRemaining", Host.LeaseTimeRemaining)
+            .TryGetValueEx("NewInterfaceType", Host.InterfaceType)
+            .TryGetValueEx("NewActive", Host.Active)
+            .TryGetValueEx("NewHostName", Host.HostName)
+
+
 
         End With
+        Return True
     End Function
 
     Public Function GetChangeCounter(ByRef ChangeCounter As Integer) As Boolean Implements IHostsSCPD.GetChangeCounter
