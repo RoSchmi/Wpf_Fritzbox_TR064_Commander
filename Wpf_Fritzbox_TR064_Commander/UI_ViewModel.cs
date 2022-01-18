@@ -27,6 +27,8 @@ namespace Wpf_Fritzbox_TR064_Commander
         FritzBoxTR64 fritzBoxTR64;
         public ICommand log_in_Button_Clicked_Command { get; private set; }
         public ICommand starte_Wahlrundruf_Clicked_Command { get; private set; }
+        public ICommand get_Dects_Clicked_Command { get; private set; }
+
         public ICommand get_Hosts_Clicked_Command { get; private set; }
         public ICommand dial_Tel_Number_Clicked_Command { get; private set; }
 
@@ -35,6 +37,7 @@ namespace Wpf_Fritzbox_TR064_Commander
         private string _friBoUsername = "username";
         private string _log_In_Message = "";
         private int _dect_Number = 0;
+        private int _host_Number = 0;
         private string _dialTelNumber;
 
         private string _session_Id = "0000000000000000";
@@ -49,6 +52,7 @@ namespace Wpf_Fritzbox_TR064_Commander
         {
             log_in_Button_Clicked_Command = new RelayCommand(Log_In_Button_Clicked_Action, param => this.canExecute);
             starte_Wahlrundruf_Clicked_Command = new RelayCommand(Starte_Wahlrundruf_Clicked_Action, param => this.canExecute);
+            get_Dects_Clicked_Command = new RelayCommand(Get_Dects_Clicked_Action, param => this.canExecute);
             get_Hosts_Clicked_Command = new RelayCommand(Get_Hosts_Clicked_Action, param => this.canExecute);
             dial_Tel_Number_Clicked_Command = new RelayCommand(Dial_Tel_Number_Clicked_Action, param => this.canExecute); 
         }
@@ -130,6 +134,21 @@ namespace Wpf_Fritzbox_TR064_Commander
 
         #endregion
 
+        #region Binding Host_Number
+        public int Host_Number
+        {
+            get
+            {
+                return _host_Number;
+            }
+            set
+            {
+                if (SetProperty(ref _host_Number, value))
+                { }
+            }
+        }
+        #endregion
+
         #region Binding Dect_Number
         public int Dect_Number
         {
@@ -145,7 +164,27 @@ namespace Wpf_Fritzbox_TR064_Commander
         }
         #endregion
 
-        #region Get_Hosts_Clicked_Command
+        #region get_Dects_Clicked_Command
+        public ICommand Get_Dects_Clicked_Command
+        {
+            get { return get_Dects_Clicked_Command; }
+            set { get_Dects_Clicked_Command = value; }
+        }
+        #endregion
+
+        #region Get_Dects_Clicked_Action
+        private void Get_Dects_Clicked_Action(object obj)
+        {
+            int numberOfEntries = 0;
+            string hostsPath = string.Empty;
+            if (fritzBoxTR64.DECT.GetNumberOfDectEntries(ref numberOfEntries))
+            {
+                Dect_Number = numberOfEntries;
+            }          
+        }
+        #endregion
+
+        #region get_Hosts_Clicked_Command
         public ICommand Get_Hosts_Clicked_Command
         {
             get { return get_Hosts_Clicked_Command; }
@@ -158,19 +197,30 @@ namespace Wpf_Fritzbox_TR064_Commander
         {
             int numberOfEntries = 0;
             string hostsPath = string.Empty;
-            if (fritzBoxTR64.DECT.GetNumberOfDectEntries(ref numberOfEntries))
+            
+
+
+            try
             {
-                Dect_Number = numberOfEntries;
+                if (fritzBoxTR64.Hosts.GetHostNumberOfEntries(ref numberOfEntries))
+                {
+                    Host_Number = numberOfEntries;
+                }
+                else
+                {
+                    int dummy2 = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;    
             }
 
-            if (fritzBoxTR64.Hosts.GetHostNumberOfEntries(ref numberOfEntries))
-            {
-
-            }
 
             if (fritzBoxTR64.Hosts.GetHostListPath(ref hostsPath))
             {
                 string first = hostsPath.Substring(0, 2);
+                int dummy2 = 1;
             }
 
             HostList hostList = new HostList();
@@ -178,16 +228,18 @@ namespace Wpf_Fritzbox_TR064_Commander
             if (fritzBoxTR64.Hosts.GetHostList(ref hostList))
             {
                 var copyHostList = hostList;
+                int dummy4 = 1;
             }
             else
             {
                 HostList theCopy = hostList;
-            }
+            }         
         }
         #endregion
 
+
         #region Dial_Tel_Number_Command
-            public ICommand Dial_Tel_Number_Clicked_Command
+        public ICommand Dial_Tel_Number_Clicked_Command
         {
             get { return dial_Tel_Number_Clicked_Command; }
             set { dial_Tel_Number_Clicked_Command = value; }

@@ -14,7 +14,7 @@
         <TextBox HorizontalAlignment="Left" Margin="43,34,0,0" Text="{Binding FriBoUsername}" TextWrapping="Wrap" VerticalAlignment="Top" Width="143"/>
         <Label Content="Fritzbox Username" HorizontalAlignment="Left" Margin="43,8,0,0" VerticalAlignment="Top"/>
         <Button Content="Ring Dect phones" Command="{Binding Starte_Wahlrundruf_Clicked_Command}" HorizontalAlignment="Left" Margin="333,83,0,0" VerticalAlignment="Top" Width="112"/>
-        <Button Content="Get Host Count" Command="{Binding Get_Hosts_Clicked_Command}"  HorizontalAlignment="Left" Margin="581,83,0,0" VerticalAlignment="Top" Width="99"/>
+        <Button Content="Get Dect Count" Command="{Binding Get_Dects_Clicked_Command}"  HorizontalAlignment="Left" Margin="581,83,0,0" VerticalAlignment="Top" Width="99"/>
         <TextBox HorizontalAlignment="Left" Margin="514,83,0,0" Text="{Binding Dect_Number}" TextWrapping="Wrap" VerticalAlignment="Top" Width="53"/>
         <Button Content="Dial Tel. Number" Command="{Binding Dial_Tel_Number_Clicked_Command}" HorizontalAlignment="Left" Margin="333,240,0,0" VerticalAlignment="Top" Width="149"/>
         <TextBox x:Name="txtBox_Dial_Tel_Number" HorizontalAlignment="Left" Margin="333,213,0,0" TextWrapping="Wrap" Text="{Binding DialTelNumber}" Background="{Binding DialTelNumber_Color}"  VerticalAlignment="Top" Width="149" Height="22"/>
@@ -22,5 +22,7 @@
         <Label Content="(Country is DE +49" HorizontalAlignment="Left" Margin="333,173,0,0" VerticalAlignment="Top"/>
         <Label Content="Must have area code" HorizontalAlignment="Left" Margin="333,191,0,0" VerticalAlignment="Top"/>
         <Label Content="Connection" HorizontalAlignment="Left" Margin="203,10,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="514,121,0,0" TextWrapping="Wrap" Text="{Binding Host_Number}" VerticalAlignment="Top" Width="53" Height="18"/>
+        <Button Content="Get Hosts Count" Command="{Binding Get_Hosts_Clicked_Command}" HorizontalAlignment="Left" Margin="581,121,0,0" VerticalAlignment="Top" Width="99"/>
     </Grid>
 </Window>
