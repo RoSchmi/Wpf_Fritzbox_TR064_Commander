@@ -205,6 +205,7 @@ namespace Wpf_Fritzbox_TR064_Commander
                 if (fritzBoxTR64.Hosts.GetHostNumberOfEntries(ref numberOfEntries))
                 {
                     Host_Number = numberOfEntries;
+                    int dummy2 = 1;
                 }
                 else
                 {
@@ -219,7 +220,7 @@ namespace Wpf_Fritzbox_TR064_Commander
 
             if (fritzBoxTR64.Hosts.GetHostListPath(ref hostsPath))
             {
-                string first = hostsPath.Substring(0, 2);
+                string path = hostsPath;
                 int dummy2 = 1;
             }
 
@@ -233,6 +234,7 @@ namespace Wpf_Fritzbox_TR064_Commander
             else
             {
                 HostList theCopy = hostList;
+                int dummy5 = 1;
             }         
         }
         #endregion
