@@ -200,10 +200,14 @@ namespace Wpf_Fritzbox_TR064_Commander
             int numberOfEntries = 10;
             string hostsPath = string.Empty;
 
-            HostEntry hostEntry = new HostEntry();
+            
 
+            HostEntry hostEntry = null;
+            var theResult = true;
 
-            var theResult = fritzBoxTR64.Hosts.GetGenericHostEntry(10, ref hostEntry);
+            theResult = fritzBoxTR64.Hosts.GetGenericHostEntry(10, ref hostEntry);
+
+            
 
             int dummy3 = 1;
             /*

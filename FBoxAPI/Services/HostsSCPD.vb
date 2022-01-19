@@ -45,18 +45,15 @@ Friend Class HostsSCPD
 
             Host.Index = Index
 
-            .TryGetValueEx("NewMACAddress", Host.MACAddress)
-            .TryGetValueEx("NewIPAddress", Host.IPAddress)
-            .TryGetValueEx("NewAddressSource", Host.AddressSource)
-            .TryGetValueEx("NewLeaseTimeRemaining", Host.LeaseTimeRemaining)
-            .TryGetValueEx("NewInterfaceType", Host.InterfaceType)
-            .TryGetValueEx("NewActive", Host.Active)
-            .TryGetValueEx("NewHostName", Host.HostName)
-
-
+            Return .TryGetValueEx("NewMACAddress", Host.MACAddress) And
+                   .TryGetValueEx("NewIPAddress", Host.IPAddress) And
+                   .TryGetValueEx("NewAddressSource", Host.AddressSource) And
+                   .TryGetValueEx("NewLeaseTimeRemaining", Host.LeaseTimeRemaining) And
+                   .TryGetValueEx("NewInterfaceType", Host.InterfaceType) And
+                   .TryGetValueEx("NewActive", Host.Active) And
+                   .TryGetValueEx("NewHostName", Host.HostName)
 
         End With
-        Return True
     End Function
 
     Public Function GetChangeCounter(ByRef ChangeCounter As Integer) As Boolean Implements IHostsSCPD.GetChangeCounter
@@ -121,8 +118,8 @@ Friend Class HostsSCPD
     End Function
 
     Public Function GetHostList(ByRef Hosts As HostList) As Boolean Implements IHostsSCPD.GetHostList
-        Dim LostList As String = String.Empty
-        Return GetHostListPath(LostList) AndAlso XML.Deserialize(LostList, False, Hosts)
+        Dim LuaPath As String = String.Empty
+        Return GetHostListPath(LuaPath) AndAlso XML.Deserialize($"http://{FritzBoxTR64.FBoxIPAdresse}:{DfltTR064Port}{LuaPath}", True, Hosts)
     End Function
 
     Public Function GetMeshListPath(ByRef MeshListPath As String) As Boolean Implements IHostsSCPD.GetMeshListPath
