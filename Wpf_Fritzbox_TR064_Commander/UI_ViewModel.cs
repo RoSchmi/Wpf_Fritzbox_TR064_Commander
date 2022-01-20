@@ -1,10 +1,12 @@
 ﻿// Wpf_Fritzbox_TR064_Commander
 // This App is a little example in C# showing some functions which can be started on a Fritzbox (router/Dectphone combination)
-// using via the TR-064 protocol using the 'FBoxAPI' library
+// via the TR-064 protocol using the 'FBoxAPI' library
 //
 // - Logging in with username and password using secure strings with the PasswordBox control
 // - Ring the loacal Dect phones (can be useed to signal an alarm condition)
 // - Dial not local phone number
+// - Retreive count of Dect devices
+// - Retreive count and some properties of hosts
 
 
 // https://www.codeproject.com/Tips/549109/Working-with-SecureString
@@ -17,8 +19,15 @@ using System.Runtime.InteropServices;
 using System.Net;
 using System.Security;
 using System.Windows.Input;
+using System.Xml.Serialization;
+using System.Xml;
+using System.Xml.Linq;
+using System.Linq;
+using System.Collections.Generic;
+using System.Text;
 using MvvmHelpers;
 using FBoxAPI;
+using System.IO;
 
 namespace Wpf_Fritzbox_TR064_Commander
 {
@@ -26,7 +35,6 @@ namespace Wpf_Fritzbox_TR064_Commander
     {
         FritzBoxTR64 fritzBoxTR64;
         
-
         public ICommand log_in_Button_Clicked_Command { get; private set; }
         public ICommand starte_Wahlrundruf_Clicked_Command { get; private set; }
         public ICommand get_Dects_Clicked_Command { get; private set; }
@@ -36,10 +44,13 @@ namespace Wpf_Fritzbox_TR064_Commander
 
         private bool canExecute = true;
 
-        private string _friBoUsername = "username";
-        private string _log_In_Message = "";
         private int _dect_Number = 0;
         private int _host_Number = 0;
+        private string _friBoUsername = "Roland";
+        private string _log_In_Message = "";
+        private string _host_Entry;
+        private string _hostEntries;
+        private string _hostsPath;
         private string _dialTelNumber;
 
         private string _session_Id = "0000000000000000";
@@ -151,6 +162,51 @@ namespace Wpf_Fritzbox_TR064_Commander
         }
         #endregion
 
+        #region Binding HostsPath
+        public string HostsPath
+        {
+            get
+            {
+                return _hostsPath;
+            }
+            set
+            {
+                if (SetProperty(ref _hostsPath, value))
+                { }
+            }
+        }
+        #endregion
+
+        #region Binding Host_Entry
+        public string Host_Entry
+        {
+            get
+            {
+                return _host_Entry;
+            }
+            set
+            {
+                if (SetProperty(ref _host_Entry, value))
+                { }
+            }
+        }
+        #endregion
+
+        #region Binding HostEntries
+        public string HostEntries
+        {
+            get
+            {
+                return _hostEntries;
+            }
+            set
+            {
+                if (SetProperty(ref _hostEntries, value))
+                { }
+            }
+        }
+        #endregion
+
         #region Binding Dect_Number
         public int Dect_Number
         {
@@ -197,75 +253,60 @@ namespace Wpf_Fritzbox_TR064_Commander
         #region Get_Hosts_Clicked_Action
         private void Get_Hosts_Clicked_Action(object obj)
         {
-            int numberOfEntries = 10;
+            int numberOfEntries = 0;
             string hostsPath = string.Empty;
-
-            
-
-            HostEntry hostEntry = null;
-            var theResult = true;
-
-            theResult = fritzBoxTR64.Hosts.GetGenericHostEntry(10, ref hostEntry);
-
-            
-
-            int dummy3 = 1;
-            /*
-            if (fritzBoxTR64.Hosts.GetGenericHostEntry(10, ref hostEntry))
+              
+            if (fritzBoxTR64.Hosts.GetHostNumberOfEntries(ref numberOfEntries))
             {
-                int dummy3 = 1;
-
+                Host_Number = numberOfEntries;
+               
             }
             else
             {
-                int dummy3 = 1;
+                throw new Exception("Getting of Hostsnumber failed");
             }
-            */
-
-            /*
-            try
+                
+            if (fritzBoxTR64.Hosts.GetHostListPath(ref hostsPath))
             {
-                if (fritzBoxTR64.Hosts.GetHostNumberOfEntries(ref numberOfEntries))
+                HostsPath = hostsPath;
+                
+            }
+
+            var hosts = new StringBuilder();
+
+            for (int i = 0; i < numberOfEntries; i++)
+            {
+                HostEntry hostEntry = null;
+                if (fritzBoxTR64.Hosts.GetGenericHostEntry(i, ref hostEntry))
                 {
-                    Host_Number = numberOfEntries;
-                    int dummy2 = 1;
+                    System.Xml.Serialization.XmlSerializer xmlSerializer = new System.Xml.Serialization.XmlSerializer(hostEntry.GetType());
+                    var buffer = new StringBuilder();
+                    var writer = XmlWriter.Create(buffer);
+                    xmlSerializer.Serialize(writer, hostEntry);
+                    string xmlString = buffer.ToString();
+                    StringReader stringReader = new StringReader(xmlString);
+                    XDocument document = XDocument.Load(stringReader);
+                    List<string> selectors = new List<string>() { "HostName", "MACAddress", "IPAddress" };
+                    var hostEntryProperties = document.Descendants("HostEntry").Elements();                   
+                    hosts.Append("<HostEntry>");
+                    foreach (XElement property in hostEntryProperties)
+                    {
+                        if (selectors.Contains(property.Name.ToString()))
+                        {
+                            hosts.Append(property);
+                        }
+                    }
+                    hosts.Append("</HostEntry>");
+                    hosts.Append("\r\n");
                 }
                 else
                 {
-                    int dummy2 = 1;
+                    throw new Exception("Getting of Hosts failed");
                 }
             }
-            catch (Exception ex)
-            {
-                string message = ex.Message;    
-            }
-            */
-
-            /*
-            if (fritzBoxTR64.Hosts.GetHostListPath(ref hostsPath))
-            {
-                string path = hostsPath;
-                int dummy2 = 1;
-            }
-            */
-
-            /*
-            HostList hostList = new HostList();
-
-            if (fritzBoxTR64.Hosts.GetHostList(ref hostList))
-            {
-                var copyHostList = hostList;
-                int dummy4 = 1;
-            }
-            else
-            {
-                HostList theCopy = hostList;
-                int dummy5 = 1;
-            }
-            */
+            HostEntries = hosts.ToString();  
         }
         #endregion
-
 
         #region Dial_Tel_Number_Command
         public ICommand Dial_Tel_Number_Clicked_Command
