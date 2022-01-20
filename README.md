@@ -1,6 +1,6 @@
 # Wpf_Fritzbox_TR064_Commander
 
-This App is a little example in C# showing some functions which can be started on a Fritzbox (router/Dectphone combination)
+This App is a little Wpf example in C# showing some functions which can be started on a Fritzbox (router/Dectphone combination)
 via the TR-064 protocol using the 'FBoxAPI' library
 
  - Logging in with username and password using secure strings with the PasswordBox control
