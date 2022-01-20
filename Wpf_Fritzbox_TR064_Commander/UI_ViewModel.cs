@@ -46,7 +46,7 @@ namespace Wpf_Fritzbox_TR064_Commander
 
         private int _dect_Number = 0;
         private int _host_Number = 0;
-        private string _friBoUsername = "Roland";
+        private string _friBoUsername = "";
         private string _log_In_Message = "";
         private string _host_Entry;
         private string _hostEntries;

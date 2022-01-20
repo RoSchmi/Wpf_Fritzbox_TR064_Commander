@@ -7,11 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Entities\Ho_Entries.cs" />
+    <Compile Remove="Entities\Ho_Entry.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="libphonenumber-csharp" Version="8.12.38" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FBoxAPI\FBoxAPI.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\" />
   </ItemGroup>
 
 </Project>
